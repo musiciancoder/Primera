@@ -60,6 +60,7 @@ class App extends Component {
     };
 
     let persons = null;
+    // let btnClass = '';
 
     if ( this.state.showPersons ) {
       persons = (
@@ -80,8 +81,10 @@ class App extends Component {
         backgroundColor: 'salmon',
         color: 'black'
       };
-    }
 
+      // btnClass = classes.Red;
+    }
+    //const assignedClasses = []; assigned classes en css modules en vez de classes en radium
     const classes = [];
     if ( this.state.persons.length <= 2 ) {
       classes.push( 'red' ); // classes = ['red']
@@ -91,12 +94,13 @@ class App extends Component {
     }
 
     return (
+        // <div className={classes.App}>, pero sin StyleRoot en css modules
         <StyleRoot>
           <div className="App">
-            <h1>Hi, I'm a React App</h1>
+            <h1>Hi, Im a React App</h1>
             <p className={classes.join( ' ' )}>This is really working!</p>
             <button
-                style={style}
+                style={style} //className={btnClass}
                 onClick={this.togglePersonsHandler}>Toggle Persons</button>
             {persons}
           </div>
