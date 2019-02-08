@@ -1,0 +1,89 @@
+import React, { Component } from 'react';
+import logo from './logo.svg';
+import './App.css';
+import Person from './Person';
+import './Person.css'
+
+class App extends Component {
+
+state={
+
+  persons:[
+  {id='ab', name:"Junior", age:"41"},
+  {id='cd',name:"Manu", age:"50"},
+  {id='ef',name:"Stephanie", age:"20"}
+  ],
+
+  otherState:'some other value',
+
+  showPersons: false
+}
+
+
+
+
+  nameChangeHandler= (event)=>{
+  this.setState({
+  persons:[
+  {name:"Junior", age:"60"},
+  {name:event.target.value, age:"50"},
+  {name:"Stephanie", age:"25"}
+  ]
+  })
+  }
+
+  deletePersonHandler=(personIndex)=>{
+  // const persons=this.state.persons.slice(); //crea una copia del array antes de ser modificado
+   const persons=[...this.state.persons];//crea una copia del array antes de ser modificado
+  persons.splice(personIndex,1);//crea un nuevo array al eliminar elementos
+  this.setState({persons:persons});//nuevo estado de persons
+  }
+
+  togglePersonsHandler=()=>{
+  //const doesShow= this.state.showPersons;
+  this.setState({showPersons: !this.state.showPersons});
+ }
+
+  render() {
+
+    const style={
+      backgroundColor: 'white',
+      font: 'inherit',
+      border:'5px solid blue',
+      padding: '8px',
+      cursor: 'pointer'
+      };
+
+    let persons=null;
+
+    if(this.state.showPersons){
+      persons=(
+
+        <div>
+           {this.state.persons.map((person,index)=>{
+            return <Person
+            click={()=>this.deletePersonHandler(index)}
+            name={person.name}
+            age={person.age}
+            key={person.id}/>
+          })}
+          </div>
+
+        );
+    } 
+
+
+    return (
+      <div className="App">
+      <h1>Hi, Im a React App</h1>
+      <p>This is really working</p>
+      <button
+      style={style} 
+      onClick={this.togglePersonsHandler}>Toggle</button>
+      {persons}
+      </div>
+    );
+  }
+}
+
+export default App;
